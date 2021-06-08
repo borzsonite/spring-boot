@@ -38,7 +38,8 @@ public class EmployeeDAOImp implements EmployeeDAO {
 //        session.saveOrUpdate(employee);
 
 ////////////////////////////////Реализация через JPA////////////////////////////
-        entityManager.merge(employee);
+        Employee newEmployee = entityManager.merge(employee);
+        employee.setId(newEmployee.getId());
     }
 
     @Override
@@ -62,7 +63,7 @@ public class EmployeeDAOImp implements EmployeeDAO {
 //        query.executeUpdate();
 
 ////////////////////////////////Реализация через JPA///////////////////////////
-        Query query = entityManager.createQuery("from Employee where id =: employeeId");
+        Query query = entityManager.createQuery("delete from Employee where id =:employeeId");
         query.setParameter("employeeId", id);
         query.executeUpdate();
     }
